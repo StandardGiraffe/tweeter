@@ -21,4 +21,5 @@
 .new-tweet span.counter {
   float: right;
   margin-top: 5px;
+  color: black;
 }

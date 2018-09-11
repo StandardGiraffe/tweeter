@@ -1,15 +1,17 @@
-const counter = document.getElementsByClassName("counter");
-
 $(document).ready(function () {
 
   $(".new-tweet form textarea").on("input", function () {
 
     let charsRemaining = (140 - $(this).val().length);
+    const charCounter = $(this).siblings(".counter");
 
-    $(this).siblings(".counter").text(charsRemaining);
+    charCounter.text(charsRemaining);
+    if (charsRemaining < 0) {
+      charCounter.css({color: "red"});
+    } else {
+      charCounter.css({color: "black"});
+    }
 
-
-    // console.log(`You have ${140 - $(this).val().length} characters left.`);
   });
 
 });
