@@ -25,6 +25,9 @@
 
     <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
 
+    <!-- Import icons from Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
@@ -40,31 +43,41 @@
     <!-- Page-specific (main) content here -->
     <main class="container">
 
-<section class="new-tweet">
-  <h2>Compose Tweet</h2>
-  <form method="POST" action="/tweets">
-    <textarea name="text" placeholder="BE BRIEF."></textarea>
-    <input type="submit" value="Tweet">
-    <span class="counter">140</span>
-  </form>
-</section>
+      <section class="new-tweet">
+        <h2>Compose Tweet</h2>
+        <form method="POST" action="/tweets">
+          <textarea name="text" placeholder="BE BRIEF."></textarea>
+          <input type="submit" value="Tweet">
+          <span class="counter">140</span>
+        </form>
+      </section>
 
 
-<section id="old-tweets">
+      <section id="old-tweets">
 
-  <article>
-    <header>
-      <img src="http://philomathy.org/wp-content/uploads/2016/10/03-The-Fallen-Now.jpg" class="avatar">
-      <p class="name-full">Danny Fekete</p>
-      <p class="name-handle">@StandardGiraffe</p>
-    </header>
-    <p class="tweet-content">Here are some words.  I wrote them.  I'm a genius.</p>
-    <footer>
-      <p>A long, long time ago...</p>
-    </footer>
-  </article>
+        <article>
+          <header>
+            <img src="http://philomathy.org/wp-content/uploads/2016/10/03-The-Fallen-Now.jpg" class="avatar">
+            <p class="name-full">Danny Fekete</p>
+            <p class="name-handle">@StandardGiraffe</p>
+          </header>
+          <p class="tweet-content">Here are some words.  I wrote them.  I'm a genius.</p>
+          <footer>
+            <span>A long, long time ago...</span>
+            <span class="action-icons">
+              <i class="fas fa-heart"></i>
+            </span>
+            <span class="action-icons">
+              <i class="fas fa-exchange-alt"></i>
+            </span>
+            <span class="action-icons">
+              <i class="fas fa-flag"></i>
+            </span>
+          </footer>
+        </article>
 
-</section>
+      </section>
+
     </main>
   </body>
 </html>
