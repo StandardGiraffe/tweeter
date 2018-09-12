@@ -51,7 +51,9 @@ var tweetData = [
   }
 ];
 
-
+// ###########
+//  Functions
+// ###########
 
 const createTweetElement = function (tweetObject) {
 
@@ -80,10 +82,41 @@ const renderTweets = function (tweetsDatabase) {
   }
 }
 
-// var $tweet = createTweetElement(tweetData);
 
+
+// ###################
+//  Actual Execution:
+// ###################
 
 $(document).ready(function() {
+
+  // Fetches tweets from the /tweets page
+  const loadTweets = function () {
+    $.ajax("/tweets", { method: "GET" })
+    .then(function (fetchedTweets) {
+      renderTweets(fetchedTweets);
+    });
+  }
+
+  loadTweets();
+
+  // Renders all tweets in the "database" to the bottom of the tweet list.
   renderTweets(tweetData);
-  // console.log($tweet); // to see what it looks like
+
+  // Listens for the tweet submission button.
+  $submitButton = $(".new-tweet form")
+  $submitButton.submit(function(event) {
+    event.preventDefault();
+    const $submittedTweet = $(this).serialize();
+    console.log($submittedTweet);
+    $.ajax("/tweets", {
+      data: $submittedTweet,
+      method: "POST"});
+
+  })
+
+
+
+
+
 })
