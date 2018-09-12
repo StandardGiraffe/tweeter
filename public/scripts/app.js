@@ -75,12 +75,15 @@ $(document).ready(function() {
       .then(function () {
         console.log("Tweet Posted");
 
+        // Prepends the most recent tweet (yours) to the top of #old-tweets.
         let tweetToAdd = {};
         $.ajax("/tweets", { method: "GET" })
         .then(function (fetchedTweets) {
           tweetToAdd = fetchedTweets[fetchedTweets.length - 1];
           $('#old-tweets').prepend(createTweetElement(tweetToAdd));
-          console.log(tweetToAdd);
+
+          // Clears the textbox upon successful submission.
+          $(".new-tweet textarea").val("");
         })
       })
     }
