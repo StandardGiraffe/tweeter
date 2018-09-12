@@ -59,11 +59,21 @@ $(document).ready(function() {
   $submitButton.submit(function(event) {
     event.preventDefault();
     const $submittedTweet = $(this).serialize();
-    console.log($submittedTweet);
-    $.ajax("/tweets", {
-      data: $submittedTweet,
-      method: "POST"});
 
+    // Validation checks:
+    let $messageLength = $(this).find("textarea").val().length; // Or the hex values of irregular characters using serialize() sum to funny values.
+    if ($messageLength < 1 || !$submittedTweet) {
+      alert("Too terse!");
+      console.log("Not posted.");
+    } else if ($messageLength > 140) {
+      alert("Not terse enough!");
+      console.log("Not posted.");
+    } else {
+      $.ajax("/tweets", {
+        data: $submittedTweet,
+        method: "POST"});
+      console.log("Tweet Posted")
+    }
   })
 
 
