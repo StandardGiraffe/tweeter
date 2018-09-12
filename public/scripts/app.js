@@ -9,15 +9,21 @@
 //  Functions
 // ###########
 
+// Escape hazardous text
+function escape(str) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
 const createTweetElement = function (tweetObject) {
 
-  // const $tweetArticle = $("<article class='tweet'>");
   const $tweet = $("<article>").addClass("tweet");
   const createdDate = new Date(tweetObject.created_at).toLocaleTimeString();
 
-  const header = `<header><img src="${tweetObject.user.avatars.small}" class="avatar"><p class="name-full">${tweetObject.user.name}</p><p class="name-handle">${tweetObject.user.handle}</p></header>`
+  const header = `<header><img src="${tweetObject.user.avatars.small}" class="avatar"><p class="name-full">${escape(tweetObject.user.name)}</p><p class="name-handle">${escape(tweetObject.user.handle)}</p></header>`
 
-  const content = `<p class="tweet-content">${tweetObject.content.text}</p>`
+  const content = `<p class="tweet-content">${escape(tweetObject.content.text)}</p>`
 
   const footer = `<footer><span>${createdDate}</span>
             <span class="action-icons"><i class="fas fa-heart"></i></span><span class="action-icons"><i class="fas fa-exchange-alt"></i></span><span class="action-icons"><i class="fas fa-flag"></i></span></footer>`
