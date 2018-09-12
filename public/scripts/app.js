@@ -32,7 +32,7 @@ const createTweetElement = function (tweetObject) {
 const renderTweets = function (tweetsDatabase) {
   for (let i = 0; i < tweetsDatabase.length; i++) {
     let currentTweet = createTweetElement(tweetsDatabase[i]);
-    $('#old-tweets').append(currentTweet);
+    $('#old-tweets').prepend(currentTweet);
   }
 }
 
@@ -71,13 +71,18 @@ $(document).ready(function() {
     } else {
       $.ajax("/tweets", {
         data: $submittedTweet,
-        method: "POST"});
-      console.log("Tweet Posted")
+        method: "POST"})
+      .then(function () {
+        console.log("Tweet Posted");
+
+        let tweetToAdd = {};
+        $.ajax("/tweets", { method: "GET" })
+        .then(function (fetchedTweets) {
+          tweetToAdd = fetchedTweets[fetchedTweets.length - 1];
+          $('#old-tweets').prepend(createTweetElement(tweetToAdd));
+          console.log(tweetToAdd);
+        })
+      })
     }
   })
-
-
-
-
-
 })
