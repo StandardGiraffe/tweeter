@@ -1,12 +1,9 @@
 #old-tweets {
-  opacity: 0.65;
 }
 
-#old-tweets:hover {
-  opacity: 1;
-}
 
 #old-tweets article {
+  opacity: 0.65;
   background-color: white;
   border: 2px solid #bbb;
   border-radius: 5px;
@@ -15,6 +12,16 @@
   margin-right: 2em;
 
 }
+
+#old-tweets article:hover {
+  opacity: 1;
+}
+
+#old-tweets article:hover .action-icons {
+  opacity: 1;
+}
+
+
 
 #old-tweets header {
   background-color: #efefef;
@@ -68,9 +75,10 @@
 
 #old-tweets .action-icons {
   color: #00a087;
-  opacity: 1.5;
+  opacity: 0.5;
   height: 15px;
   width: 15px;
   top: 0px;
   float: right;
+  opacity: 0;
 }

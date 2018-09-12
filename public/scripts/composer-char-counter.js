@@ -7,9 +7,9 @@ $(document).ready(function () {
 
     charCounter.text(charsRemaining);
     if (charsRemaining < 0) {
-      charCounter.css({color: "red"});
+      charCounter.addClass("exceeded-counter");
     } else {
-      charCounter.css({color: "black"});
+      charCounter.removeClass("exceeded-counter");
     }
 
   });
