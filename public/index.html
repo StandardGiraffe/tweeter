@@ -37,7 +37,7 @@
     <!-- Top nav bar (fixed) -->
     <nav id="nav-bar">
       <img class="logo" src="/images/bird.png">
-      <span class="header">TweeTerse</span>
+      <span class="header">TweeTERSE.</span>
       <span class="nav-button" id="compose-button"><a href="#"><i class="far fa-edit"></i> Compose</a></span>
     </nav>
 
@@ -48,7 +48,19 @@
         <h2>Compose Tweet</h2>
         <form method="POST" action="/tweets">
           <textarea name="text" placeholder="BE BRIEF."></textarea>
-          <input type="submit" value="Tweet">
+          <input type="submit" value="Tweet" id="submit-button">
+
+          <span class="error">
+            <span id="too-short">
+              <i class="fas fa-exclamation-triangle"></i>
+              TOO TERSE.
+            </span>
+            <span id="too-long">
+              <i class="fas fa-exclamation-triangle"></i>
+              LOQUACIOUS MUCH.
+            </span>
+          </span>
+
           <span class="counter">140</span>
         </form>
       </section>

@@ -77,7 +77,10 @@ $(document).ready(function() {
   // Name the hooked elements
   const $submitButton = $(".new-tweet form");
   const $composeButton = $("#compose-button");
-  let composeButtonState = false;
+
+  // Warning Flags:
+  const $warnTooShort = $(`<span class="error"><span id="too-short"><i class="fas fa-exclamation-triangle"></i>TOO TERSE.</span></span>`);
+  const $warnTooLong = $(`<span class="error"><span id="too-long"><i class="fas fa-exclamation-triangle"></i>LOQUACIOUS MUCH.</span></span>`);
 
   // Listens for the tweet submission button.
 
@@ -103,19 +106,25 @@ $(document).ready(function() {
     const $submittedTweet = $(this).serialize();
 
     // Validation checks:
+    $("#too-short").hide(50);
+    $("#too-long").hide(50);
     let $messageLength = $(this).find("textarea").val().length; // Or the hex values of irregular characters using serialize() sum to funny values.
     if ($messageLength < 1 || !$submittedTweet) {
-      alert("Too terse!");
-      console.log("Not posted.");
+      // alert("Too terse!");
+      // $(".error #too-short").toggleClass("alert").slideToggle(200);
+      $("#too-short").show(50);
+      console.log("Not posted: too short.");
     } else if ($messageLength > 140) {
-      alert("Not terse enough!");
-      console.log("Not posted.");
+      $("#too-long").show(50);
+      // alert("Not terse enough!");
+      console.log("Not posted: too long.");
     } else {
       $.ajax("/tweets", {
         data: $submittedTweet,
         method: "POST"})
       .then(function () {
-        console.log("Tweet Posted");
+        $("span.counter").text("140"); // Reset tweet counter.
+        console.log("Tweet posted");
 
         // Prepends the most recent tweet (yours) to the top of #old-tweets.
         let tweetToAdd = {};
