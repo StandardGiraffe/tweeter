@@ -24,3 +24,23 @@
   padding-left: 10px;
 
 }
+
+#nav-bar .nav-button {
+  border: 2px solid black;
+  color: #00a087;
+  size: 1em;
+  background-color: #e8fdff;
+  float: right;
+  border-radius: 5px;
+  padding: 1em 0.5em;
+  margin: 0.8em 0.5em;
+}
+
+#nav-bar .nav-button a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+#nav-bar .nav-button:hover {
+  color: black;
+  background-color: white;

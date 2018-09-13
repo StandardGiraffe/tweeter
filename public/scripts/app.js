@@ -42,7 +42,20 @@ const renderTweets = function (tweetsDatabase) {
   }
 }
 
+const $compositionForm = $(`
+    <section class="new-tweet">
+      <h2>Compose Tweet</h2>
+      <form method="POST" action="/tweets">
+        <textarea name="text" placeholder="BE BRIEF."></textarea>
+        <input type="submit" value="Tweet">
+        <span class="counter">140</span>
+      </form>
+    </section>
+    `);
 
+const renderCompositionForm = function (form) {
+  $("section.new-tweet").toggle();
+}
 
 // ###################
 //  Actual Execution:
@@ -58,10 +71,33 @@ $(document).ready(function() {
     });
   }
 
+  // renderCompositionForm(createCompositionForm()); // testing porp
   loadTweets();
 
+  // Name the hooked elements
+  const $submitButton = $(".new-tweet form");
+  const $composeButton = $("#compose-button");
+  let composeButtonState = false;
+
   // Listens for the tweet submission button.
-  $submitButton = $(".new-tweet form")
+
+  $composeButton.on("click", function () {
+    $("section.new-tweet").slideToggle(200, function() {
+      $(this).find("textarea").focus();
+    })
+
+  });
+
+
+
+  //   if (composeButtonState) {
+  //     // close the form
+  //   } else {
+  //     renderCompositionForm();
+  //     composeButtonState = false;
+  //   }
+  // })
+
   $submitButton.submit(function(event) {
     event.preventDefault();
     const $submittedTweet = $(this).serialize();
