@@ -4,9 +4,8 @@ Tweeter is a simple, single-page Twitter clone.
 
 [Starter code](https://github.com/lighthouse-labs/tweeter) for the project was provided by [Lighthouse Labs](https://www.lighthouselabs.ca/).
 
+
 ## Screenshots
-
-
 ![Main interface: tweets are listed in reverse-chronological order beneath the submission button.](https://raw.githubusercontent.com/StandardGiraffe/tweeter/master/docs/tweet-list.png)
 
 ![Clicking the "WRITE." button will toggle the input box with a comely animation, assuming you haven't been rejected by the application.](https://raw.githubusercontent.com/StandardGiraffe/tweeter/master/docs/toggle-animation.png)
@@ -20,8 +19,8 @@ Tweeter is a simple, single-page Twitter clone.
 - On-the-fly updating of page content using AJAX
 - Dynamic character counter with patent-pending User-Rejection Technology™!
 
-## Dependencies
 
+## Dependencies
 - Express
 - Node 5.10.x or above
 - RainbowVis-JS
@@ -30,3 +29,16 @@ Tweeter is a simple, single-page Twitter clone.
 - Body-Parser
 - Chance
 
+
+## Getting Started
+- Install all dependencies
+```
+$ npm install
+```
+- Initialize the database server, then run the application server.
+```
+npm start local
+```
+
+
+###### Last updated 2018-09-14
