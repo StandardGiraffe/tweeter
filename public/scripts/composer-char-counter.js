@@ -3,7 +3,7 @@ $(document).ready(function () {
   // Import rainbowvis library
   // const Rainbow = require('../../node_modules/rainbowvis.js');
   const angryBlush = new Rainbow();
-  angryBlush.setSpectrum("#eeeeee", "#d15e38", "#8e0707");
+  angryBlush.setSpectrum("#eeeeee", "#d15e38", "#d15e38", "#8e0707");
 
 
 
