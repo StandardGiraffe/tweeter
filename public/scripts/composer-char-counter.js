@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-  // Import rainbowvis library
+  // Assign RainbowVis-JS library
   const angryBlush = new Rainbow();
-  angryBlush.setSpectrum("#eeeeee", "#d15e38", "#d15e38", "#8e0707");
+  angryBlush.setSpectrum("#eeeeee", "#eeeeee", "#d15e38", "#8e0707");
 
 
 
@@ -15,87 +15,91 @@ $(document).ready(function () {
     return Math.floor((current / max)*100);
   }
 
-  // Build an object with a random direction (0-7) and magnitude (0-1) based on how close to capacity the tweet is, curving dramatically towards the end for maximum comedy.
+  // Factory function to build an object with a random direction (0-7) and magnitude (0-1) based on how close to capacity the tweet is, curving up dramatically towards the end for maximum comedy.
   const shakeMaker = function (howFull) {
     const shakeInstructions = {};
 
-    // Sets one a random value between 0 and 7 to represent compass directions
+    // Sets one a random value between 0 and 7 to represent compass cardinals and diagonals.
     shakeInstructions.direction = Math.floor(Math.random()*7);
 
+    // Creates a magnitude based on
     shakeInstructions.magnitude = Math.pow((howFull/100), 3);
 
     return shakeInstructions;
     // returns an object with direction and magnitude
   }
 
-  // Colors the background of the input box based on how close to capacity the tweet is.  Uses RainbowVis-JS library to interpolate colours along the curve.  (In this example, the curve is the same as the shake magnitude curve.)
+  // Colors the background of the input box based on how close to capacity the tweet is.  Uses RainbowVis-JS library to interpolate colour hex values along the curve.  (In this implementation, the curve is the same as the shake magnitude curve.)
   // https://github.com/anomal/RainbowVis-JS
   const addBlush = function (howFull, curve) {
 
     currentBlush = howFull * curve;
-    // currentBlush = howFull * shakeMaker(howFull).magnitude;
-
     $(".new-tweet").css("background-color", "#" + angryBlush.colorAt(currentBlush));
+
   }
 
   // Take shakeMaker's object and nudge the input box in the given direction, by the given magnitude, for 40 ms, then return it to it's correct position.
   const shakeNewTweet = function (shakeArray) {
 
+    const nudge = function (direction, magnitude) {
+
+      let inverter = "";
+
+      if (direction === "up" || direction === "right") {
+        inverter = "-";
+      } else {
+        inverter = "";
+      }
+
+      if (direction === "up" || direction === "down") {
+        $(".new-tweet").css("top", inverter + magnitude.toString() + "em");
+      } else if (direction === "left" || direction === "right") {
+        $(".new-tweet").css("right", inverter + magnitude.toString() + "em");
+      } else {
+        console.log("Invalid input.");
+      }
+    }
+
+    const unNudge = function () {
+      $(".new-tweet").css("top", "0em");
+      $(".new-tweet").css("right", "0em");
+    }
 
     switch (shakeArray.direction) {
       case 0:
-        $(".new-tweet").css("top", "-" + (shakeArray.magnitude).toString() + "em");
-        setTimeout(() => {$(".new-tweet").css("top", "0em")}, 40);
+        nudge("up", shakeArray.magnitude);
+        setTimeout(unNudge, 40);
         break;
       case 1:
-        $(".new-tweet").css("top", "-" + (shakeArray.magnitude).toString() + "em");
-        $(".new-tweet").css("right", "-" + (shakeArray.magnitude).toString() + "em");
-        setTimeout(() => {
-          $(".new-tweet").css("top", "0em");
-          $(".new-tweet").css("right", "0em");
-        }, 40);
+        nudge("up", shakeArray.magnitude);
+        nudge("right", shakeArray.magnitude);
+        setTimeout(unNudge, 40);
         break;
       case 2:
-        $(".new-tweet").css("right", "-" + (shakeArray.magnitude).toString() + "em");
-        setTimeout(() => {
-          $(".new-tweet").css("right", "0em");
-        }, 40);
+        nudge("right", shakeArray.magnitude);
         break;
       case 3:
-        $(".new-tweet").css("top", (shakeArray.magnitude).toString() + "em");
-        $(".new-tweet").css("right", "-" + (shakeArray.magnitude).toString() + "em");
-        setTimeout(() => {
-          $(".new-tweet").css("top", "0em");
-          $(".new-tweet").css("right", "0em");
-        }, 40);
+        nudge("right", shakeArray.magnitude);
+        nudge("down", shakeArray.magnitude);
+        setTimeout(unNudge, 40);
         break;
       case 4:
-        $(".new-tweet").css("top", (shakeArray.magnitude).toString() + "em");
-        setTimeout(() => {
-          $(".new-tweet").css("top", "0em");
-        }, 40);
+        nudge("down", shakeArray.magnitude);
+        setTimeout(unNudge, 40);
         break;
       case 5:
-        $(".new-tweet").css("top", (shakeArray.magnitude).toString() + "em");
-        $(".new-tweet").css("right", (shakeArray.magnitude).toString() + "em");
-        setTimeout(() => {
-          $(".new-tweet").css("top", "0em");
-          $(".new-tweet").css("right", "0em");
-        }, 40);
+        nudge("down", shakeArray.magnitude);
+        nudge("left", shakeArray.magnitude);
+        setTimeout(unNudge, 40);
         break;
       case 6:
-        $(".new-tweet").css("right", (shakeArray.magnitude).toString() + "em");
-        setTimeout(() => {
-          $(".new-tweet").css("right", "0em");
-        }, 40);
+        nudge("left", shakeArray.magnitude);
+        setTimeout(unNudge, 40);
         break;
       case 7:
-        $(".new-tweet").css("top", "-" + (shakeArray.magnitude).toString() + "em");
-        $(".new-tweet").css("right", (shakeArray.magnitude).toString() + "em");
-        setTimeout(() => {
-          $(".new-tweet").css("top", "0em");
-          $(".new-tweet").css("right", "0em");
-        }, 40);
+        nudge("left", shakeArray.magnitude);
+        nudge("up", shakeArray.magnitude);
+        setTimeout(unNudge, 40);
         break;
     }
   }
