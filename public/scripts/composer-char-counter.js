@@ -127,7 +127,7 @@ $(document).ready(function () {
 
     charCounter.text(charsRemaining);
 
-    if (charsRemaining < -50) {
+    if (charsRemaining < -4) {
       // Too far!
       $("section.new-tweet").remove();
       $("main.container").prepend(rejectionMessage);
