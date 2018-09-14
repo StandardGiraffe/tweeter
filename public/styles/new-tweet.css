@@ -11,6 +11,19 @@
   margin-right: 2em;
 }
 
+#angry-blush {
+  background-color: #8e0707;
+  /*border: 2px solid #ccc;*/
+  border-radius: 5px;
+  opacity: 0;
+  /*padding-top: 5px;*/
+  /*padding-bottom: 35px;*/
+  /*padding-left: 10px;*/
+  /*padding-right: 10px;*/
+  /*margin-left: 2em;*/
+  /*margin-right: 2em;*/
+}
+
 .new-tweet h2 {
   border-bottom: 1px solid black;
   width: 100%;

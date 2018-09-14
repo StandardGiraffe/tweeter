@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+  // Import rainbowvis library
+  // const Rainbow = require('../../node_modules/rainbowvis.js');
+  const angryBlush = new Rainbow();
+  angryBlush.setSpectrum("#eeeeee", "#d15e38", "#8e0707");
+
+
+
   // Shaker functions
 
   const howFull = function (current, max) {
@@ -18,7 +25,17 @@ $(document).ready(function () {
     // returns an object with direction and magnitude
   }
 
+  const addBlush = function (howFull, curve) {
+
+    currentBlush = howFull * curve;
+    // currentBlush = howFull * shakeMaker(howFull).magnitude;
+
+    $(".new-tweet").css("background-color", "#" + angryBlush.colorAt(currentBlush));
+  }
+
   const shakeNewTweet = function (shakeArray) {
+
+
     switch (shakeArray.direction) {
       case 0:
         $(".new-tweet").css("top", "-" + (shakeArray.magnitude).toString() + "em");
@@ -81,6 +98,7 @@ $(document).ready(function () {
   $(".new-tweet form textarea").on("input", function () {
 
     let charsRemaining = (140 - $(this).val().length);
+    addBlush(howFull(140 - charsRemaining, 140), shakeMaker(howFull(140 - charsRemaining, 140)).magnitude);
     shakeNewTweet(shakeMaker(howFull(140 - charsRemaining, 140)));
     const charCounter = $(this).siblings(".counter");
 
