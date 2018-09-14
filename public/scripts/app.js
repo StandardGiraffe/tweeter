@@ -92,15 +92,6 @@ $(document).ready(function() {
   });
 
 
-
-  //   if (composeButtonState) {
-  //     // close the form
-  //   } else {
-  //     renderCompositionForm();
-  //     composeButtonState = false;
-  //   }
-  // })
-
   $submitButton.submit(function(event) {
     event.preventDefault();
     const $submittedTweet = $(this).serialize();
