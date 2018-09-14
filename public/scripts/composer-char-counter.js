@@ -1,18 +1,21 @@
 $(document).ready(function () {
 
   // Import rainbowvis library
-  // const Rainbow = require('../../node_modules/rainbowvis.js');
   const angryBlush = new Rainbow();
   angryBlush.setSpectrum("#eeeeee", "#d15e38", "#d15e38", "#8e0707");
 
 
 
-  // Shaker functions
+  // **************************
+  //  Angry text box functions
+  // **************************
 
+  // Calculate the percentage of available characters used as an integer
   const howFull = function (current, max) {
     return Math.floor((current / max)*100);
   }
 
+  // Build an object with a random direction (0-7) and magnitude (0-1) based on how close to capacity the tweet is, curving dramatically towards the end for maximum comedy.
   const shakeMaker = function (howFull) {
     const shakeInstructions = {};
 
@@ -25,6 +28,8 @@ $(document).ready(function () {
     // returns an object with direction and magnitude
   }
 
+  // Colors the background of the input box based on how close to capacity the tweet is.  Uses RainbowVis-JS library to interpolate colours along the curve.  (In this example, the curve is the same as the shake magnitude curve.)
+  // https://github.com/anomal/RainbowVis-JS
   const addBlush = function (howFull, curve) {
 
     currentBlush = howFull * curve;
@@ -33,6 +38,7 @@ $(document).ready(function () {
     $(".new-tweet").css("background-color", "#" + angryBlush.colorAt(currentBlush));
   }
 
+  // Take shakeMaker's object and nudge the input box in the given direction, by the given magnitude, for 40 ms, then return it to it's correct position.
   const shakeNewTweet = function (shakeArray) {
 
 
@@ -94,6 +100,23 @@ $(document).ready(function () {
     }
   }
 
+  // Contents of the User-Rejection Box
+  const rejectionMessage = `      <section class="reject-user">
+        <span class="dictionary-definition">
+          <p>
+            <span class="word"><a href="https://www.merriam-webster.com/dictionary/terse">terse</a></span> <span class="pronunciation">\ˈtərs\</span>  <span class="part-of-speech">(adj.)</span><br><span class="definition">1 : using few words : devoid of superfluity<br>2 : smoothly elegant : polished</span>
+          </p>
+        </span>
+        <span class="rejection-message">
+          <p><i class="fas fa-user-times"></i>  USER REJECTED.</span>
+          </p>
+        </span>
+      </section>`
+
+
+  // ##############################
+  //  Events on typing start here:
+  // ##############################
 
   $(".new-tweet form textarea").on("input", function () {
 
@@ -103,9 +126,19 @@ $(document).ready(function () {
     const charCounter = $(this).siblings(".counter");
 
     charCounter.text(charsRemaining);
-    if (charsRemaining < 0) {
+
+    if (charsRemaining < -50) {
+      // Too far!
+      $("section.new-tweet").remove();
+      $("main.container").prepend(rejectionMessage);
+
+
+    } else if (charsRemaining < 0) {
+      // Redden the counter
       charCounter.addClass("exceeded-counter");
+
     } else {
+      // Blacken the counter
       charCounter.removeClass("exceeded-counter");
     }
 
