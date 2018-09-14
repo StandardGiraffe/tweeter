@@ -1,21 +1,17 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
 
 // ###########
 //  Functions
 // ###########
 
-// Escape hazardous text
+// Escape hazardous text to prevent Cross-Site-Scripting
+// (Code taken from Lighthouse Labs example)
 function escape(str) {
-  var div = document.createElement('div');
+  const div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 }
 
+// Factory function to build and return a populated HTML tweet unit using a provided object.
 const createTweetElement = function (tweetObject) {
 
   const $tweet = $("<article>").addClass("tweet");
@@ -35,6 +31,7 @@ const createTweetElement = function (tweetObject) {
   return $tweet;
 }
 
+// Update the webpage by adding all tweets in the database (reverse-chronological order).
 const renderTweets = function (tweetsDatabase) {
   for (let i = 0; i < tweetsDatabase.length; i++) {
     let currentTweet = createTweetElement(tweetsDatabase[i]);
@@ -42,20 +39,8 @@ const renderTweets = function (tweetsDatabase) {
   }
 }
 
-const $compositionForm = $(`
-    <section class="new-tweet">
-      <h2>Compose Tweet</h2>
-      <form method="POST" action="/tweets">
-        <textarea name="text" placeholder="BE BRIEF."></textarea>
-        <input type="submit" value="Tweet">
-        <span class="counter">140</span>
-      </form>
-    </section>
-    `);
 
-const renderCompositionForm = function (form) {
-  $("section.new-tweet").toggle();
-}
+
 
 // ###################
 //  Actual Execution:
@@ -71,27 +56,23 @@ $(document).ready(function() {
     });
   }
 
-  // renderCompositionForm(createCompositionForm()); // testing porp
   loadTweets();
 
-  // Name the hooked elements
   const $submitButton = $(".new-tweet form");
   const $composeButton = $("#compose-button");
 
-  // Warning Flags:
+  // Warning-flag HTML for insertion as needed
   const $warnTooShort = $(`<span class="error"><span id="too-short"><i class="fas fa-exclamation-triangle"></i>TOO TERSE.</span></span>`);
   const $warnTooLong = $(`<span class="error"><span id="too-long"><i class="fas fa-exclamation-triangle"></i>LOQUACIOUS MUCH.</span></span>`);
 
-  // Listens for the tweet submission button.
-
+  // The "WRITE." button toggles new-tweet form visibility/focus.
   $composeButton.on("click", function () {
     $("section.new-tweet").slideToggle(200, function() {
       $(this).find("textarea").focus();
-    })
-
+    });
   });
 
-
+  // The "YES." button attempts to submit content in the new-tweet form to the database, after validation checks.
   $submitButton.submit(function(event) {
     event.preventDefault();
     const $submittedTweet = $(this).serialize();
@@ -99,25 +80,26 @@ $(document).ready(function() {
     // Validation checks:
     $("#too-short").hide(50);
     $("#too-long").hide(50);
-    let $messageLength = $(this).find("textarea").val().length; // Or the hex values of irregular characters using serialize() sum to funny values.
+
+    // Workaround to ensure that irregular characters (which would be submitted as their hex values rather than plain text) don't count against the length limit as three characters.
+    let $messageLength = $(this).find("textarea").val().length;
+
     if ($messageLength < 1 || !$submittedTweet) {
-      // alert("Too terse!");
-      // $(".error #too-short").toggleClass("alert").slideToggle(200);
-      $("#too-short").show(50);
-      console.log("Not posted: too short.");
+      $("#too-short").show(75);
+
     } else if ($messageLength > 140) {
-      $("#too-long").show(50);
-      // alert("Not terse enough!");
-      console.log("Not posted: too long.");
+      $("#too-long").show(75);
+
     } else {
       $.ajax("/tweets", {
         data: $submittedTweet,
         method: "POST"})
       .then(function () {
-        $("span.counter").text("140"); // Reset tweet counter.
-        console.log("Tweet posted");
 
-        // Prepends the most recent tweet (yours) to the top of #old-tweets.
+        // Reset the tweet counter.
+        $("span.counter").text("140");
+
+        // Prepends the most recent tweet to the top of #old-tweets without reloading the whole database.
         let tweetToAdd = {};
         $.ajax("/tweets", { method: "GET" })
         .then(function (fetchedTweets) {
