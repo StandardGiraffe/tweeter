@@ -22,11 +22,10 @@ $(document).ready(function () {
     // Sets one a random value between 0 and 7 to represent compass cardinals and diagonals.
     shakeInstructions.direction = Math.floor(Math.random()*7);
 
-    // Creates a magnitude based on
+    // Creates a magnitude based on the remaining characters available and then cubes it to form a desired exponential curve with a slow onset and then rapid completion.
     shakeInstructions.magnitude = Math.pow((howFull/100), 3);
 
     return shakeInstructions;
-    // returns an object with direction and magnitude
   }
 
   // Colors the background of the input box based on how close to capacity the tweet is.  Uses RainbowVis-JS library to interpolate colour hex values along the curve.  (In this implementation, the curve is the same as the shake magnitude curve.)
