@@ -33,37 +33,3 @@ main {
   align-items: center;
 }
 
-.reject-user {
-  border: red solid 4px;
-  position: relative;
-  width: 80%;
-  margin: 0 auto;
-  padding: 1em;
-  border-radius: 5px;
-  background-color: black;
-  margin-bottom: 1em;
-  color: #ccc;
-
-}
-
-.reject-user span.dictionary-definition p {
-  padding-left: 2em;
-}
-
-.reject-user span.word {
-  font-size: 1.5em;
-  color: #fff;
-  line-height: 1.5em;
-}
-
-.reject-user span.word a {
-  text-decoration: none;
-  color: #fff;
-}
-
-.reject-user span.rejection-message {
-  color: red;
-  font-size: 0.8em;
-  font-weight: 700;
-  text-align: center;
-}

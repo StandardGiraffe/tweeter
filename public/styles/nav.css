@@ -22,7 +22,6 @@
   font-size: 200%;
   line-height: 80px;
   padding-left: 10px;
-
 }
 
 #nav-bar .nav-button {
@@ -36,7 +35,7 @@
   margin: 0.8em 0.5em;
 }
 
-#nav-bar .nav-button a {
+#nav-bar a {
   color: inherit;
   text-decoration: inherit;
 }
@@ -45,3 +44,4 @@
   color: black;
   background-color: white;
   cursor: pointer;
+}
