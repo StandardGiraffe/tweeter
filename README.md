@@ -9,7 +9,7 @@ Tweeter is a simple, single-page Twitter clone.
 - Tweet validation (too long/empty submission) with dynamic error responses shown
 - Tweets are persisted to database with MongoDB
 - On-the-fly updating of page content using AJAX
-- Dynamic character counter with patent-pending User-Rejection Technology!
+- Dynamic character counter with patent-pending User-Rejection Technology™!
 
 ## Dependencies
 

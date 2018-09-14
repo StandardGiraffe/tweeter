@@ -96,7 +96,8 @@ $(document).ready(function() {
         method: "POST"})
       .then(function () {
 
-        // Reset the tweet counter.
+        // Reset the tweet counter and removes blush.
+        $(".new-tweet").css("background-color", "#eee")
         $("span.counter").text("140");
 
         // Prepends the most recent tweet to the top of #old-tweets without reloading the whole database.
