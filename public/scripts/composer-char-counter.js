@@ -77,6 +77,7 @@ $(document).ready(function () {
         break;
       case 2:
         nudge("right", shakeArray.magnitude);
+        setTimeout(unNudge, 40);
         break;
       case 3:
         nudge("right", shakeArray.magnitude);
@@ -104,7 +105,7 @@ $(document).ready(function () {
     }
   }
 
-  // Contents of the User-Rejection Box
+  // Contents of the User-Rejection Technology Confirmation Box:
   const rejectionMessage = `      <section class="reject-user">
         <span class="dictionary-definition">
           <p>
@@ -115,7 +116,9 @@ $(document).ready(function () {
           <p><i class="fas fa-user-times"></i>  USER REJECTED.</span>
           </p>
         </span>
-      </section>`
+      </section>`;
+
+
 
 
   // ##############################
@@ -124,18 +127,22 @@ $(document).ready(function () {
 
   $(".new-tweet form textarea").on("input", function () {
 
-    let charsRemaining = (140 - $(this).val().length);
-    addBlush(howFull(140 - charsRemaining, 140), shakeMaker(howFull(140 - charsRemaining, 140)).magnitude);
-    shakeNewTweet(shakeMaker(howFull(140 - charsRemaining, 140)));
+    const charsRemaining = (140 - $(this).val().length);
+    const capacityUsed = howFull(140 - charsRemaining, 140);
+    const quakeReport = shakeMaker(capacityUsed);
+
+    // User-Rejection Technology Warning System Update 5000!
+    addBlush(capacityUsed, quakeReport.magnitude);
+    shakeNewTweet(quakeReport);
     const charCounter = $(this).siblings(".counter");
 
+    // Standard character count update:
     charCounter.text(charsRemaining);
 
     if (charsRemaining < -4) {
       // Too far!
       $("section.new-tweet").remove();
       $("main.container").prepend(rejectionMessage);
-
 
     } else if (charsRemaining < 0) {
       // Redden the counter
