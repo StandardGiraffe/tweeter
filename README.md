@@ -6,6 +6,8 @@ Tweeter is a simple, single-page Twitter clone.
 
 
 ## Screenshots
+![Patent-pending customer-rejection technology in action.](https://media.giphy.com/media/d7pzSDcMrtfbekhTPF/giphy.gif)
+
 ![Main interface: tweets are listed in reverse-chronological order beneath the submission button.](https://raw.githubusercontent.com/StandardGiraffe/tweeter/master/docs/tweet-list.png)
 
 ![Clicking the "WRITE." button will toggle the input box with a comely animation, assuming you haven't been rejected by the application.](https://raw.githubusercontent.com/StandardGiraffe/tweeter/master/docs/toggle-animation.png)
